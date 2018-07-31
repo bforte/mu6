@@ -1,0 +1,4 @@
+resolver: lts-12.4
+packages:
+- .
+extra-deps: [ modular-arithmetic-1.2.1.3 ]
