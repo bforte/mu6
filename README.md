@@ -1,4 +1,4 @@
-# μ6
+# [μ6](https://esolangs.org/wiki/Mu6)
 
 This is an interpreter for μ6 - a programming language based on μ-recursive
 functions:
@@ -7,7 +7,7 @@ functions:
 usage: mu6 (-h | -e expr | file) [-a] [-v] INPUTS
   -e    --expr       evaluate an expression
   -a    --ascii      set ascii mode
-  -d    --decimal    take user input in decimal format
+  -6    --heximal    take user input in heximal format
   -v    --verbose    treat source as ascii string
   -t    --translate  translate source code
   -m M  --modulus=M  operate in N/M

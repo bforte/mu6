@@ -31,14 +31,14 @@ data Flags = F
   , _help      :: Bool
   }
 
-defaults = F False Bin False Nothing False True False
+defaults = F False Bin False Nothing False False False
 
 makeLenses ''Flags
 
 runFlags (F _ _ _ _ _ _ True) _ = putStrLn $ usageInfo usage options
 runFlags (F e _ _ _ _ _ _) [] | wat <- if e then "expression" else "file"
                             = die $ "no " ++ wat ++ " provided"
-runFlags (F e f t m a b _) (x:xs) = do
+runFlags (F e f t m b a _) (x:xs) = do
   src <- if e then pure x else readFile x
   either (ioError . userError) id $
     if t then pure $ translateFmt f src
@@ -65,7 +65,7 @@ main = getOpt Permute options <$> getArgs >>= \case
 options =
   [ Option "e" ["expr"] (NoArg $ expr .~ True) "evaluate an expression"
   , Option "a" ["ascii"] (NoArg $ ascii .~ True) "set ascii mode"
-  , Option "d" ["decimal"] (NoArg $ base6 .~ False) "take user input in decimal format"
+  , Option "6" ["heximal"] (NoArg $ base6 .~ False) "take user input in heximal format"
   , Option "v" ["verbose"] (NoArg $ format .~ Str) "treat source as ascii string"
   , Option "t" ["translate"] (NoArg $ translate .~ True) "translate source code"
   , Option "m" ["modulus"] (ReqArg ((modulus ?~) . readNum) "M") "operate in N/M"
