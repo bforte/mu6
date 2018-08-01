@@ -45,7 +45,7 @@ runFlags (F e f t m b a _) (x:xs) = do
     else do
       let run typ = do (p,ci) <- parseFmt f src
                        inputs <- mapM (parseInput b typ) xs
-                       pure . putStrLn . pretty a . eval p $ ci ++ inputs
+                       pure . putStrLn . pretty a b . eval p $ ci ++ inputs
       sequence m >>= \case
         Nothing -> run (Proxy @Integer)
         Just m  -> case someNatVal m of
@@ -64,8 +64,8 @@ main = getOpt Permute options <$> getArgs >>= \case
 
 options =
   [ Option "e" ["expr"] (NoArg $ expr .~ True) "evaluate an expression"
-  , Option "a" ["ascii"] (NoArg $ ascii .~ True) "set ascii mode"
-  , Option "6" ["heximal"] (NoArg $ base6 .~ False) "take user input in heximal format"
+  , Option "a" ["ascii"] (NoArg $ ascii .~ True) "set ascii output mode"
+  , Option "6" ["heximal"] (NoArg $ base6 .~ True) "heximal I/O mode"
   , Option "v" ["verbose"] (NoArg $ format .~ Str) "treat source as ascii string"
   , Option "t" ["translate"] (NoArg $ translate .~ True) "translate source code"
   , Option "m" ["modulus"] (ReqArg ((modulus ?~) . readNum) "M") "operate in N/M"

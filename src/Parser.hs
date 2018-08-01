@@ -62,8 +62,8 @@ parseInput b6 _ = eShow . parse (input <* eof) "input" where
   input = number <|> tuple
 
   number
-    | b6 = Const . tRead <$> many1 digit
-    | otherwise = Const . fromB6 . map (tRead . pure) <$> many1 (oneOf "012345")
+    | b6 = Const . fromB6 . map (tRead . pure) <$> many1 (oneOf "012345")
+    | otherwise = Const . tRead <$> many1 digit
 
   tuple = do
     spaces *> char '(' *> spaces
